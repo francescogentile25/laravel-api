@@ -22,7 +22,7 @@ class ProjectSeeder extends Seeder
         $type_ids = Type::all()->pluck('id')->all();
         // recupero tutte le categorie e con palck all ottengo non le istanze ma i valori delle proprietà id 
         $technology_id = Technology::all()->pluck('id')->all();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 400; $i++) {
 
             $pro = new Project();
             $pro->title = $faker->unique()->sentence($faker->numberBetween(3, 10));
