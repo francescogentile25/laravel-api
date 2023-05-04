@@ -16,4 +16,11 @@ class ProjectController extends Controller
             'results' => $results,
         ]);
     }
+    public function show($slug)
+    {
+        return response()->json([
+            'success' => true,
+            'project' => $slug
+        ]);
+    }
 }
