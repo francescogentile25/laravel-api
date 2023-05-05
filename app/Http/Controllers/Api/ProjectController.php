@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -18,7 +19,9 @@ class ProjectController extends Controller
     }
     public function show($slug)
     {
-        $project = Project::with('type:name,slug,id', 'technologies:name,slug,id')->where('slug', $slug)->first();
+        $project = Project::with(['type.projects' => function (Builder $query) {
+            $query->orderBy('created_at', 'desc')->limit(3);
+        }])->where('slug', $slug)->first();
 
         if ($project) {
             return response()->json([
