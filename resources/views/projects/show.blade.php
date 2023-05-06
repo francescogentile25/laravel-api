@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+    @if ($project->cover_image)
+        <div class="container">
+            <img src="{{ $project->cover_path }}" alt="">
+        </div>
+    @endif
     <div class="container">
         <div class="d-flex align-items-center">
             <div class="me-auto">

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -54,6 +55,13 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('image')) {
+            $cover_path = Storage::put('uploads', $data['image']);
+            $data['cover_image'] = $cover_path;
+        }
+
+
         $project = Project::create($data);
         if (isset($data['technologies'])) {
             $project->technologies()->attach($data['technologies']);
@@ -99,6 +107,15 @@ class ProjectController extends Controller
         if ($data['title'] !== $project->title) {
             $data['slug'] = Str::slug($data['title']);
         }
+        if ($request->hasFile('image')) {
+            $cover_path = Storage::put('uploads', $data['image']);
+            $data['cover_image'] = $cover_path;
+
+            if ($project->cover_image && Storage::exists($project->cover_image)) {
+                Storage::delete($project->cover_image);
+            }
+        }
+
         $project->update($data);
 
         if (isset($data['technologies'])) {
