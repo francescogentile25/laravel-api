@@ -97,4 +97,12 @@
             </tbody>
         </table>
     </div>
+    {{-- <div>
+        {{ $projects->links() }}
+    </div> --}}
+    <ul class="d-flex gap-2 flex-wrap align-items-center justify-content-center">
+        <li>{{ $projects->links() }}</li>
+    </ul>
 @endsection
+<style>
+</style>

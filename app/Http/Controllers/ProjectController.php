@@ -25,7 +25,7 @@ class ProjectController extends Controller
         if ($trashed) {
             $projects = Project::onlyTrashed()->get();
         } else {
-            $projects = Project::all();
+            $projects = Project::orderBy('created_at', 'desc')->paginate(10);
         }
 
         // $projects = Project::withTrashed()->get();

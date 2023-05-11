@@ -28,7 +28,7 @@ class ProjectSeeder extends Seeder
             $pro->title = $faker->unique()->sentence($faker->numberBetween(3, 10));
             $pro->description = $faker->sentence($faker->numberBetween(20, 100));
             $pro->website_link = 'https://dsdsadsa.com';
-            $pro->slug = Str::of($pro->title, '-');
+            $pro->slug = Str::slug($pro->title, '-');
             $pro->type_id = $faker->optional()->randomElement($type_ids);
             $pro->save();
 
